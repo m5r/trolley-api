@@ -1,5 +1,6 @@
 const micro = require('micro');
 const Router = require('micro-http-router');
+const cors = require('micro-cors')();
 
 const { send } = micro;
 const router = new Router();
@@ -27,7 +28,7 @@ router.route({
 	},
 });
 
-const server = micro((req, res) => router.handle(req, res));
+const server = micro(cors((req, res) => router.handle(req, res)));
 const port = 3029;
 server.listen(port);
 console.log(`micro is listening on port: ${port}`);
